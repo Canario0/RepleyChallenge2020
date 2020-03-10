@@ -123,3 +123,4 @@ temp/
 
 # Ignore all the compiled files
 js/*
+inputs/*
