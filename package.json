@@ -11,8 +11,5 @@
   "devDependencies": {
     "@types/node": "^13.9.0",
     "typescript": "^3.8.3"
-  },
-  "dependencies": {
-    "tsc": "^1.20150623.0"
   }
 }
