@@ -5,7 +5,7 @@ function fileRead(fileRoute: string): string {
     return fs.readFileSync(fileRoute, 'utf8');
 }
 
-function getStain(coordX: number, coordY: number, sizeX: number, sizeY: number): number[][] {
+function getStain(office_map: string[][],coordX: number, coordY: number, sizeX: number, sizeY: number): number[][] {
 
     let stain: number[][] = [];
 
@@ -28,10 +28,11 @@ function getStain(coordX: number, coordY: number, sizeX: number, sizeY: number):
 
     }
 
+    stain = stain.filter((x)=>{!isWall (office_map, x[0], x[1])});
     return stain;
 }
 
-function isWall(office: string[], coordX: number, coordY: number): boolean {
+function isWall(office: string[][], coordX: number, coordY: number): boolean {
     return office[coordY][coordX] == "#"
 }
 
@@ -101,8 +102,8 @@ for (let i = 0; i < dev_number; i++) {
 bonus_mean /= dev_number
 console.log(bonus_mean);
 
-console.log([...devs].filter((d, bonus_mean) =>{return d.bonus < bonus_mean}).length)
-console.log([...devs].filter((d, bonus_mean) =>{return d.bonus >= bonus_mean}).length)
+console.log([...devs].filter((d, bonus_mean) => { return d.bonus < bonus_mean }).length)
+console.log([...devs].filter((d, bonus_mean) => { return d.bonus >= bonus_mean }).length)
 
 
 
@@ -115,10 +116,13 @@ for (let i = 0; i < manager_number; i++) {
     data = input.next();
 }
 
-for (let i = 0; i < x_limit; i++) {
-    for (let j = 0; j < y_limit; j++) {
+// for (let i = 0; i < x_limit; i++) {
+//     for (let j = 0; j < y_limit; j++) {
+//         if (isWall(office_map, i, j)) {
 
-    }
-}
-
-console.log(getStain(5, 5, 5, 5))
+//         }
+//     }
+// }
+console.log(office_map)
+console.log(getStain(office_map,1, 1, 5, 3))
+console.log(getStain(office_map,0, 0, 5, 3))
