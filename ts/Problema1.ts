@@ -48,24 +48,34 @@ let input = fileByLines(FILEDIR + FILE);
 
 let data = input.next();
 let aux = data.value.split(' ');
-let x_limit: Number = Number(aux[0]);
-let y_limit: Number = Number(aux[1]);
+let x_limit: number = Number(aux[0]);
+let y_limit: number = Number(aux[1]);
 let office_map = [];
 data = input.next()
 for (let i = 0; i < y_limit; i++) {
     office_map.push(data.value.split(''));
     data = input.next();
 }
-let dev_number: Number = Number(data.value);
+let dev_number: number = Number(data.value);
 let devs = new Set();
+let bonus_mean: number = 0;
 data = input.next();
 for (let i = 0; i < dev_number; i++) {
     let aux = data.value.split(' ');
     devs.add(new Dev(i, aux[0], Number(aux[1]), aux.slice(3)));
+    bonus_mean = bonus_mean + Number(aux[1]);
+    console.log(bonus_mean)
     data = input.next();
 }
+bonus_mean /= dev_number
+console.log(bonus_mean);
 
-let manager_number: Number = Number(data.value);
+console.log([...devs].filter((d, bonus_mean) =>{return d.bonus < bonus_mean}).length)
+console.log([...devs].filter((d, bonus_mean) =>{return d.bonus >= bonus_mean}).length)
+
+
+
+let manager_number: number = Number(data.value);
 let managers = new Set();
 data = input.next();
 for (let i = 0; i < manager_number; i++) {
