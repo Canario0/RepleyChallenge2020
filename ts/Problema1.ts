@@ -7,7 +7,7 @@ function fileRead(fileRoute: string): string {
 
 function getStain(office_map: string[][],coordX: number, coordY: number, sizeX: number, sizeY: number): number[][] {
 
-    let stain: number[][] = [];
+    let stain: number[][] = [[coordX, coordY]];
 
     if (!(coordX == 0)) {
         stain.push([coordX - 1, coordY]);
@@ -18,17 +18,17 @@ function getStain(office_map: string[][],coordX: number, coordY: number, sizeX: 
 
     }
 
-    if (!(coordX == sizeX)) {
+    if (!(coordX == sizeX-1)) {
         stain.push([coordX + 1, coordY]);
 
     }
 
-    if (!(coordY == sizeY)) {
+    if (!(coordY == sizeY-1)) {
         stain.push([coordX, coordY + 1]);
 
     }
 
-    stain = stain.filter((x)=>{!isWall (office_map, x[0], x[1])});
+    stain = stain.filter((x)=>{ return !isWall (office_map, x[0], x[1])});
     return stain;
 }
 
@@ -74,7 +74,7 @@ class Manager {
 
 // Code
 const FILEDIR: string = './inputs/';
-const FILE: string = 'test.txt';
+const FILE: string = 'a_solar.txt';
 
 let input = fileByLines(FILEDIR + FILE);
 
@@ -96,7 +96,6 @@ for (let i = 0; i < dev_number; i++) {
     let aux = data.value.split(' ');
     devs.add(new Dev(i, aux[0], Number(aux[1]), aux.slice(3)));
     bonus_mean = bonus_mean + Number(aux[1]);
-    console.log(bonus_mean)
     data = input.next();
 }
 bonus_mean /= dev_number
@@ -110,19 +109,28 @@ console.log([...devs].filter((d, bonus_mean) => { return d.bonus >= bonus_mean }
 let manager_number: number = Number(data.value);
 let managers = new Set();
 data = input.next();
+let companies = new Set([...devs].map((d) => d.company));
 for (let i = 0; i < manager_number; i++) {
     let aux = data.value.split(' ');
-    managers.add(new Manager(i, aux[0], Number(aux[1])));
+    if(companies.has(aux[0]))
+        managers.add(new Manager(i, aux[0], Number(aux[1])));
     data = input.next();
 }
+console.log(managers)
+let stain = {}
+for (let i = 0; i < x_limit; i++) {
+    for (let j = 0; j < y_limit; j++) {
+        if(!isWall(office_map, i,j)){
+            let aux = getStain(office_map,i, j, x_limit, y_limit);
+            if(aux.length in stain)
+                stain[aux.length].push(aux);
+            else
+                stain[aux.length] = [aux];
+        }
+    }
+}
 
-// for (let i = 0; i < x_limit; i++) {
-//     for (let j = 0; j < y_limit; j++) {
-//         if (isWall(office_map, i, j)) {
 
-//         }
-//     }
-// }
-console.log(office_map)
-console.log(getStain(office_map,1, 1, 5, 3))
-console.log(getStain(office_map,0, 0, 5, 3))
+// console.log(office_map)
+// console.log(getStain(office_map,2, 1, 5, 3))
+// console.log(getStain(office_map,0, 0, 5, 3))
