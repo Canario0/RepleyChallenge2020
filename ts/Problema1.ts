@@ -1,7 +1,38 @@
 import * as fs from 'fs';
+import { off } from 'process';
 // Functions
 function fileRead(fileRoute: string): string {
     return fs.readFileSync(fileRoute, 'utf8');
+}
+
+function getStain(coordX: number, coordY: number, sizeX: number, sizeY: number): number[][] {
+
+    let stain: number[][] = [];
+
+    if (!(coordX == 0)) {
+        stain.push([coordX - 1, coordY]);
+    }
+
+    if (!(coordY == 0)) {
+        stain.push([coordX, coordY - 1]);
+
+    }
+
+    if (!(coordX == sizeX)) {
+        stain.push([coordX + 1, coordY]);
+
+    }
+
+    if (!(coordY == sizeY)) {
+        stain.push([coordX, coordY + 1]);
+
+    }
+
+    return stain;
+}
+
+function isWall(office: string[], coordX: number, coordY: number): boolean {
+    return office[coordY][coordX] == "#"
 }
 
 function* fileByLines(fileRoute: string) {
@@ -42,7 +73,7 @@ class Manager {
 
 // Code
 const FILEDIR: string = './inputs/';
-const FILE: string = 'a_solar.txt';
+const FILE: string = 'test.txt';
 
 let input = fileByLines(FILEDIR + FILE);
 
@@ -74,3 +105,10 @@ for (let i = 0; i < manager_number; i++) {
     data = input.next();
 }
 
+for (let i = 0; i < x_limit; i++) {
+    for (let j = 0; j < y_limit; j++) {
+
+    }
+}
+
+console.log(getStain(5, 5, 5, 5))
