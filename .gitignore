@@ -124,3 +124,6 @@ temp/
 # Ignore all the compiled files
 js/*
 inputs/*
+
+yarn.lock
+package-lock.json
