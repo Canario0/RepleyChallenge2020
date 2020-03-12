@@ -14,11 +14,15 @@ function* fileByLines(filefileRoute: string) {
 }
 // Code
 const FILEDIR: string = './inputs/';
-const FILE: string = 'test.txts';
+const FILE: string = 'a_solar.txt';
 
 let input = fileByLines(FILEDIR + FILE);
 let data = input.next();
-while(!data.done){
-    console.log(data.value);
-    data = input.next()
-}
+
+let x_limit: Number = Number(data.value[0]);
+let y_limit: Number = Number(data.value[1]);
+
+// while(!data.done){
+//     console.log(data.value);
+//     data = input.next()
+// }
